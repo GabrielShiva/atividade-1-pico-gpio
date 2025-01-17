@@ -22,6 +22,12 @@
 #define BTN_PIN 28
 #define BUZZER_PIN 21
 
+// definindo os LEDs
+
+#define LED_RED 10
+#define LED_GREEM 11
+#define LED_BLUE 12
+
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
 const uint32_t buzzer_frequency = 100;
@@ -82,6 +88,22 @@ void buzzer_init() {
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
 }
 
+void led_init(){
+    // configuração inicial dos LEDs
+
+    gpio_init(LED_RED);
+    gpio_set_dir(LED_RED, GPIO_OUT);
+    gpio_put(LED_RED, 0); 
+
+    gpio_init(LED_GREEM);
+    gpio_set_dir(LED_GREEM, GPIO_OUT);
+    gpio_put(LED_GREEM, 0); 
+
+    gpio_init(LED_BLUE);
+    gpio_set_dir(LED_BLUE, GPIO_OUT);
+    gpio_put(LED_BLUE, 0); 
+}
+
 void buzzer_active(uint32_t buzzer_frequency, uint32_t duration_buzzer_on) {
     uint32_t half_period_us = (1000000 / buzzer_frequency) / 2; // Define por quanto tempo o pino conectado ao buzzer deve ficar em nível alto/baixo
 
@@ -103,6 +125,7 @@ int main() {
     keypad_init();
     btn_init();
     buzzer_init();
+    led_init();
 
     while (true) {
         char key = keypad_read();
@@ -114,7 +137,12 @@ int main() {
         } else if (key == 'C') {
             // codigo (1) aqui 
         } else if (key == 'D') {
-            // codigo (2) aqui
+            // o botao D do teclado é pressionado, os três leds são acesos
+            gpio_put(LED_RED, 1); 
+            gpio_put(LED_GREEM, 1); 
+            gpio_put(LED_BLUE, 1);
+
+
         } else if (key == '#') {
             // Quando o botão # for pressionado, o buzzer é ativado por 2s com uma frequência de 900Hz
             buzzer_active(900, 2000);
@@ -130,6 +158,11 @@ int main() {
         } else if (key == '*') {
             // codigo (5) aqui
             // para o contador, utilize a variavel keypad_key_counter que ja foi criada
+        } else{
+            // Desligando todos os PINS caso nenhuma tecla esteja ativada
+            gpio_put(LED_RED, 0); 
+            gpio_put(LED_GREEM, 0); 
+            gpio_put(LED_BLUE, 0);
         }
 
         sleep_ms(100);
