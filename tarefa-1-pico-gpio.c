@@ -21,6 +21,9 @@
 
 #define BTN_PIN 28
 #define BUZZER_PIN 21
+#define LED_RED_PIN 10
+#define LED_GREEN_PIN 11
+#define LED_BLUE_PIN 12
 
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
@@ -82,6 +85,15 @@ void buzzer_init() {
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
 }
 
+void leds_init() {
+    gpio_init(LED_RED_PIN);
+    gpio_set_dir(LED_RED_PIN, GPIO_OUT);
+    gpio_init(LED_GREEN_PIN);
+    gpio_set_dir(LED_GREEN_PIN, GPIO_OUT);
+    gpio_init(LED_BLUE_PIN);
+    gpio_set_dir(LED_BLUE_PIN, GPIO_OUT);
+}
+
 void buzzer_active(uint32_t buzzer_frequency, uint32_t duration_buzzer_on) {
     uint32_t half_period_us = (1000000 / buzzer_frequency) / 2; // Define por quanto tempo o pino conectado ao buzzer deve ficar em nível alto/baixo
 
@@ -99,15 +111,18 @@ int main() {
     keypad_key_counter = 0;
 
     stdio_init_all();
+
     keypad_init();
     btn_init();
     buzzer_init();
+    leds_init();
 
     while (true) {
         char key = keypad_read();
 
         if (key == 'A') {
             // codigo (1) aqui 
+            gpio_put(LED_RED_PIN, 1);
         } else if (key == 'B') {
             // codigo (1) aqui 
         } else if (key == 'C') {
