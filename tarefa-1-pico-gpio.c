@@ -19,8 +19,13 @@
 #define KEYPAD_ROWS 4
 #define KEYPAD_COLS 4
 
+#define BTN_PIN 28
+
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
+
+uint8_t btn_counter;
+uint8_t keypad_key_counter;
 
 const char key_map[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'1', '2', '3', 'A'},
@@ -28,11 +33,6 @@ const char key_map[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'7', '8', '9', 'C'},
   {'*', '0', '#', 'D'}
 };
-
-/**
-* Linhas -> saídas enviando sinal de 3.3V na leitura
-* Colunas -> entradas lendo o seu nível lógico
-*/
 
 void keypad_init() {
   for (uint8_t i = 0; i < KEYPAD_ROWS; i++) {
@@ -69,9 +69,20 @@ char keypad_read() {
   return NO_KEY_PRESSED;
 }
 
+void btn_init() {
+    gpio_init(BTN_PIN);
+    gpio_set_dir(BTN_PIN, GPIO_IN);
+    gpio_pull_up(BTN_PIN);
+}
+
 int main() {
+    btn_counter = 0;
+    keypad_key_counter = 0;
+
     stdio_init_all();
+
     keypad_init();
+    btn_init();
 
     while (true) {
         char key = keypad_read();
@@ -90,10 +101,14 @@ int main() {
             // codigo (6) aqui
         } else if (key == '6') {
             // codigo (7) aqui
-        } else if (key == '4') {
-            // codigo (8) aqui
         } else if (key == '9') {
-            // codigo (9) aqui
+            // codigo (8) aqui
+        } else if (!gpio_get(BTN_PIN)) {
+            // codigo (4) aqui
+            // para o contador, utilize a variavel btn_counter que ja foi criada
+        } else if (key == '*') {
+            // codigo (5) aqui
+            // para o contador, utilize a variavel keypad_key_counter que ja foi criada
         }
 
         sleep_ms(100);
