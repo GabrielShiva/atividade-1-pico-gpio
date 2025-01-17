@@ -115,7 +115,8 @@ int main() {
         } else if (key == 'D') {
             // codigo (2) aqui
         } else if (key == '#') {
-            //codigo (3) aqui
+            // Quando o botão # for pressionado, o buzzer é ativado por 2s com uma frequência de 900Hz
+            buzzer_active(900, 2000);
         } else if (key == '0') {
             // codigo (6) aqui
         } else if (key == '6') {
