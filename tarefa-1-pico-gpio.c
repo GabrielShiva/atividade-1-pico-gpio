@@ -69,12 +69,35 @@ char keypad_read() {
   return NO_KEY_PRESSED;
 }
 
-int main()
-{
+int main() {
     stdio_init_all();
+    keypad_init();
 
     while (true) {
-        printf("Hello, world!\n");
-        sleep_ms(1000);
+        char key = keypad_read();
+
+        if (key == 'A') {
+            // codigo (1) aqui 
+        } else if (key == 'B') {
+            // codigo (1) aqui 
+        } else if (key == 'C') {
+            // codigo (1) aqui 
+        } else if (key == 'D') {
+            // codigo (2) aqui
+        } else if (key == '#') {
+            // codigo (3) aqui
+        } else if (key == '0') {
+            // codigo (6) aqui
+        } else if (key == '6') {
+            // codigo (7) aqui
+        } else if (key == '4') {
+            // codigo (8) aqui
+        } else if (key == '9') {
+            // codigo (9) aqui
+        }
+
+        sleep_ms(100);
     }
+
+    return 0;
 }
