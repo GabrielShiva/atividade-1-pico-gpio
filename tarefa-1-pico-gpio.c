@@ -28,6 +28,10 @@
 #define LED_GREEM 11
 #define LED_BLUE 12
 
+
+// PROTÓTIPOS DE FUNÇÕES
+void ligar_semaforo(void);
+
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
 const uint32_t buzzer_frequency = 100;
@@ -151,7 +155,10 @@ int main() {
         } else if (key == '6') {
             // codigo (7) aqui
         } else if (key == '9') {
-            // codigo (8) aqui
+
+            // Quando o botão 9 for pressionado, o semáforo é ativado
+            ligar_semaforo();
+
         } else if (!gpio_get(BTN_PIN)) {
             // codigo (4) aqui
             // para o contador, utilize a variavel btn_counter que ja foi criada
@@ -169,4 +176,23 @@ int main() {
     }
 
     return 0;
+}
+
+void ligar_semaforo(void){
+    
+    gpio_put(LED_RED, 1);
+    sleep_ms(3000);
+    gpio_put(LED_RED, 0);
+
+    for(int i = 0; i < 3; i++){
+        gpio_put(LED_BLUE, 1);
+        sleep_ms(1000);
+        gpio_put(LED_BLUE, 0);
+        sleep_ms(1000);
+    }
+
+    gpio_put(LED_GREEM, 1);
+    sleep_ms(5000);
+    gpio_put(LED_GREEM, 0);
+
 }
