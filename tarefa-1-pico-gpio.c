@@ -122,7 +122,6 @@ int main() {
 
         if (key == 'A') {
             // codigo (1) aqui 
-            gpio_put(LED_RED_PIN, 1);
         } else if (key == 'B') {
             // codigo (1) aqui 
         } else if (key == 'C') {
