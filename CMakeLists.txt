@@ -55,7 +55,7 @@ target_include_directories(tarefa-1-pico-gpio PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(tarefa-1-pico-gpio 
-        
+
         )
 
 pico_add_extra_outputs(tarefa-1-pico-gpio)

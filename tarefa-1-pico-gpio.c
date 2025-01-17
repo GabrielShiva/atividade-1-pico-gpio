@@ -20,9 +20,11 @@
 #define KEYPAD_COLS 4
 
 #define BTN_PIN 28
+#define BUZZER_PIN 21
 
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
+const uint32_t buzzer_frequency = 100;
 
 uint8_t btn_counter;
 uint8_t keypad_key_counter;
@@ -75,14 +77,31 @@ void btn_init() {
     gpio_pull_up(BTN_PIN);
 }
 
+void buzzer_init() {
+    gpio_init(BUZZER_PIN);
+    gpio_set_dir(BUZZER_PIN, GPIO_OUT);
+}
+
+void buzzer_active(uint32_t buzzer_frequency, uint32_t duration_buzzer_on) {
+    uint32_t half_period_us = (1000000 / buzzer_frequency) / 2; // Define por quanto tempo o pino conectado ao buzzer deve ficar em nível alto/baixo
+
+    // gera uma onda quadrada
+    for (uint32_t i = 0; i < duration_buzzer_on * 1000; i += half_period_us * 2) {
+        gpio_put(BUZZER_PIN, 1);
+        sleep_us(half_period_us);
+        gpio_put(BUZZER_PIN, 0);
+        sleep_us(half_period_us);
+    }
+}
+
 int main() {
     btn_counter = 0;
     keypad_key_counter = 0;
 
     stdio_init_all();
-
     keypad_init();
     btn_init();
+    buzzer_init();
 
     while (true) {
         char key = keypad_read();
@@ -96,7 +115,7 @@ int main() {
         } else if (key == 'D') {
             // codigo (2) aqui
         } else if (key == '#') {
-            // codigo (3) aqui
+            //codigo (3) aqui
         } else if (key == '0') {
             // codigo (6) aqui
         } else if (key == '6') {
