@@ -31,6 +31,9 @@
 
 // PROTÓTIPOS DE FUNÇÕES
 void ligar_semaforo(void);
+void sos_morse_code(void);
+void ponto(void); // Função que implementa ponto(.) do código morse
+void traco(void); // Função que implementa traço(-) do código morse
 
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
@@ -153,7 +156,8 @@ int main() {
         } else if (key == '0') {
             // codigo (6) aqui
         } else if (key == '6') {
-            // codigo (7) aqui
+            // Quando o botão 6 for pressionado, o LED azul pisca em um padrão morse para o código "SOS"
+            sos_morse_code();
         } else if (key == '9') {
 
             // Quando o botão 9 for pressionado, o semáforo é ativado
@@ -195,4 +199,42 @@ void ligar_semaforo(void){
     sleep_ms(5000);
     gpio_put(LED_GREEM, 0);
 
+}
+
+void ponto() {
+    gpio_put(LED_BLUE, true);
+    sleep_ms(200);
+    gpio_put(LED_BLUE, false);
+}
+void traco() {
+    gpio_put(LED_BLUE, true);
+    sleep_ms(800);
+    gpio_put(LED_BLUE, false);
+}
+
+void sos_morse_code(void) {
+    // Letra S
+    ponto();
+    sleep_ms(125);
+    ponto();
+    sleep_ms(125);
+    ponto();
+    
+    sleep_ms(250);
+
+    // Letra O
+    traco();
+    sleep_ms(125);
+    traco();
+    sleep_ms(125);
+    traco();
+
+    sleep_ms(250);
+
+    // Letra S
+    ponto();
+    sleep_ms(125);
+    ponto();
+    sleep_ms(125);
+    ponto();
 }
