@@ -139,36 +139,54 @@ int main() {
 
         if (key == 'A') {
             // o botao A do teclado é pressionado, led vermelho é aceso 
+
+            printf("ROTINA ATIVA: LED VERMELHO ACESO!\n");
             gpio_put(LED_RED, 1); 
         } else if (key == 'B') {
             // o botao B do teclado é pressionado, led verde é aceso 
+
+            printf("ROTINA ATIVA: LED VERDE ACESO!\n");
             gpio_put(LED_GREEM, 1); 
         } else if (key == 'C') {
             // o botao C do teclado é pressionado, led azul é aceso 
+
+            printf("ROTINA ATIVA: LED AZUL ACESO!\n");
             gpio_put(LED_BLUE, 1); 
         } else if (key == 'D') {
             // o botao D do teclado é pressionado, os três leds são acesos
+
+            printf("ROTINA ATIVA: TRES LEDS ACESOS!\n");
             gpio_put(LED_RED, 1); 
             gpio_put(LED_GREEM, 1); 
             gpio_put(LED_BLUE, 1);
+        } else if (!gpio_get(BTN_PIN)) {
+            // Quando o botão externo for pressionado três vezes, o buzzer é ativado com uma frequência de 900Hz
+            btn_counter = btn_counter + 1;
 
+            printf("Nº DE CLICKS: %d\n", btn_counter);
 
-        } else if (key == '#') {
-            // Quando o botão # for pressionado, o buzzer é ativado por 2s com uma frequência de 900Hz
-            buzzer_active(900, 2000);
-        } else if (key == '0') {
-            // codigo (6) aqui
+            if (btn_counter == 3) {
+                printf("ROTINA ATIVA: BUZZER EMITE SOM!\n");
+
+                buzzer_active(900, 500);
+                sleep_ms(200);
+                buzzer_active(900, 500);
+                sleep_ms(200);
+                buzzer_active(900, 500);
+
+                btn_counter = 0;
+                printf("ROTINA FINALIZADA: BUZZER EMITE SOM!\n");
+            }
         } else if (key == '6') {
             // Quando o botão 6 for pressionado, o LED azul pisca em um padrão morse para o código "SOS"
+
+            printf("ROTINA ATIVA: CODIGO MORSE LED AZUL!\n");
             sos_morse_code();
         } else if (key == '9') {
-
             // Quando o botão 9 for pressionado, o semáforo é ativado
-            ligar_semaforo();
 
-        } else if (!gpio_get(BTN_PIN)) {
-            // codigo (4) aqui
-            // para o contador, utilize a variavel btn_counter que ja foi criada
+            printf("ROTINA ATIVA: LEDS PISCAM EM SEQUENCIA!\n");
+            ligar_semaforo();
         } else if (key == '*') {
             // codigo (5) aqui
             // para o contador, utilize a variavel keypad_key_counter que ja foi criada
@@ -186,7 +204,6 @@ int main() {
 }
 
 void ligar_semaforo(void){
-    
     gpio_put(LED_RED, 1);
     sleep_ms(3000);
     gpio_put(LED_RED, 0);
@@ -201,7 +218,6 @@ void ligar_semaforo(void){
     gpio_put(LED_GREEM, 1);
     sleep_ms(5000);
     gpio_put(LED_GREEM, 0);
-
 }
 
 void ponto() {

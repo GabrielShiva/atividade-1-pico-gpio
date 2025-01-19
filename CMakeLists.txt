@@ -55,7 +55,7 @@ pico_set_program_name(tarefa-1-pico-gpio "tarefa-1-pico-gpio")
 pico_set_program_version(tarefa-1-pico-gpio "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(tarefa-1-pico-gpio 0)
+pico_enable_stdio_uart(tarefa-1-pico-gpio 1)
 pico_enable_stdio_usb(tarefa-1-pico-gpio 1)
 
 # Add the standard library to the build
