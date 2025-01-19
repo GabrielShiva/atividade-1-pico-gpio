@@ -44,7 +44,7 @@ void buzzer_active(uint32_t buzzer_frequency, uint32_t duration_buzzer_on); // A
 
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
-const uint32_t buzzer_frequency = 100;
+const uint32_t buzzer_frequency = 300;
 
 uint8_t btn_counter;
 uint8_t keypad_key_counter;
@@ -107,11 +107,11 @@ int main() {
             if (btn_counter == 3) {
                 printf("ROTINA ATIVA: BUZZER EMITE SOM!\n");
 
-                buzzer_active(900, 500);
+                buzzer_active(buzzer_frequency, 500);
                 sleep_ms(200);
-                buzzer_active(900, 500);
+                buzzer_active(buzzer_frequency, 500);
                 sleep_ms(200);
-                buzzer_active(900, 500);
+                buzzer_active(buzzer_frequency, 500);
 
                 btn_counter = 0;
                 printf("ROTINA FINALIZADA: BUZZER EMITE SOM!\n");
@@ -214,8 +214,8 @@ void led_init(){
     gpio_put(LED_BLUE, 0); 
 }
 
-void buzzer_active(uint32_t buzzer_frequency, uint32_t duration_buzzer_on) {
-    uint32_t half_period_us = (1000000 / buzzer_frequency) / 2; // Define por quanto tempo o pino conectado ao buzzer deve ficar em nível alto/baixo
+void buzzer_active(uint32_t buzzer_frequency_in, uint32_t duration_buzzer_on) {
+    uint32_t half_period_us = (1000000 / buzzer_frequency_in) / 2; // Define por quanto tempo o pino conectado ao buzzer deve ficar em nível alto/baixo
 
     // gera uma onda quadrada
     for (uint32_t i = 0; i < duration_buzzer_on * 1000; i += half_period_us * 2) {
