@@ -138,11 +138,14 @@ int main() {
         char key = keypad_read();
 
         if (key == 'A') {
-            // codigo (1) aqui 
+            // o botao A do teclado é pressionado, led vermelho é aceso 
+            gpio_put(LED_RED, 1); 
         } else if (key == 'B') {
-            // codigo (1) aqui 
+            // o botao B do teclado é pressionado, led verde é aceso 
+            gpio_put(LED_GREEM, 1); 
         } else if (key == 'C') {
-            // codigo (1) aqui 
+            // o botao C do teclado é pressionado, led azul é aceso 
+            gpio_put(LED_BLUE, 1); 
         } else if (key == 'D') {
             // o botao D do teclado é pressionado, os três leds são acesos
             gpio_put(LED_RED, 1); 
