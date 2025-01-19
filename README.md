@@ -51,12 +51,11 @@ Os pinos configurados no programa são:
 2. **Execução do Programa**:  
    - Realize a compilação do projeto;  
    - Abra o arquivo `diagram.json` e clique no botão verde (*executar*);  
-   - Alternativamente, acesse o código disponível no **Wokwi Web** [clicando aqui](#).  
 
 ---
 
 ## 🎥 **Apresentação em Vídeo**
 
-O vídeo demonstrando o funcionamento do projeto pode ser acessado [clicando aqui](#).
+O vídeo demonstrando o funcionamento do projeto pode ser acessado [clicando aqui](https://youtu.be/fXQdt2cZLm8).
 
 ---
