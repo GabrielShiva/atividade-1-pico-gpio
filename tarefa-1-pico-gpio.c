@@ -75,15 +75,21 @@ int main() {
 
             printf("ROTINA ATIVA: LED VERMELHO ACESO!\n");
             gpio_put(LED_RED, 1); 
+            gpio_put(LED_GREEM, 0); 
+            gpio_put(LED_BLUE, 0); 
         } else if (key == 'B') {
             // o botao B do teclado é pressionado, led verde é aceso 
 
             printf("ROTINA ATIVA: LED VERDE ACESO!\n");
+            gpio_put(LED_RED, 0); 
             gpio_put(LED_GREEM, 1); 
+            gpio_put(LED_BLUE, 0); 
         } else if (key == 'C') {
             // o botao C do teclado é pressionado, led azul é aceso 
 
             printf("ROTINA ATIVA: LED AZUL ACESO!\n");
+            gpio_put(LED_RED, 0); 
+            gpio_put(LED_GREEM, 0); 
             gpio_put(LED_BLUE, 1); 
         } else if (key == 'D') {
             // o botao D do teclado é pressionado, os três leds são acesos
@@ -137,7 +143,7 @@ int main() {
             keypad_key_counter = 0;
         }
 
-        if (key != NO_KEY_PRESSED) { 
+        if (key != NO_KEY_PRESSED && gpio_get(BTN_PIN)) { 
             // Zerar contador caso outra tecla seja pressionada quando está no meio da contagem do botão vermelho
             btn_counter = 0;
         }
@@ -169,8 +175,6 @@ char keypad_read() {
     for (uint8_t j = 0; j < KEYPAD_COLS; j++) {
       if (gpio_get(col_pins[j]) == HIGH_LEVEL) {
         sleep_ms(50);
-        while(gpio_get(col_pins[j]));
-
         gpio_put(row_pins[i], LOW_LEVEL);
 
         return key_map[i][j];
