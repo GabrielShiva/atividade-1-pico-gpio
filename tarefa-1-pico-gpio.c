@@ -34,6 +34,9 @@ void ligar_semaforo(void);
 void sos_morse_code(void);
 void ponto(void); // Função que implementa ponto(.) do código morse
 void traco(void); // Função que implementa traço(-) do código morse
+void acender_leds(void); // Função que acende todos os leds
+void apagar_leds(void); // Função que apaga todos os leds
+void asterisco_led_buzzer(char key); // Função que implementa a lógica do asterisco
 
 const uint8_t row_pins[KEYPAD_ROWS] = {1, 2, 3, 4};
 const uint8_t col_pins[KEYPAD_COLS] = {5, 6, 7, 8};
@@ -188,13 +191,19 @@ int main() {
             printf("ROTINA ATIVA: LEDS PISCAM EM SEQUENCIA!\n");
             ligar_semaforo();
         } else if (key == '*') {
-            // codigo (5) aqui
-            // para o contador, utilize a variavel keypad_key_counter que ja foi criada
+             // codigo (5) aqui
+            // Após 5 pressões consecutivas do '*', o buzzer toca 5 vezes e os LEDs acendem todos juntos para indicar que o contador 
+            //atingiu o número 5. O contador é então zerado.
+            asterisco_led_buzzer(key);
         } else{
             // Desligando todos os PINS caso nenhuma tecla esteja ativada
             gpio_put(LED_RED, 0); 
             gpio_put(LED_GREEM, 0); 
             gpio_put(LED_BLUE, 0);
+        }
+        if (key !='*'&& key !='\0'){//zerar contador caso outra tecla seja digitada
+
+            keypad_key_counter = 0;
         }
 
         sleep_ms(100);
@@ -256,4 +265,40 @@ void sos_morse_code(void) {
     ponto();
     sleep_ms(125);
     ponto();
+}
+
+// Acender todos os LEDs
+void acender_leds()
+{
+    gpio_put(LED_RED, 1);
+    gpio_put(LED_GREEM, 1);
+    gpio_put(LED_BLUE, 1);
+}
+// Apagar todos os LEDs
+void apagar_leds()
+{
+    gpio_put(LED_RED, 0);
+    gpio_put(LED_GREEM, 0);
+    gpio_put(LED_BLUE, 0);
+}
+
+void asterisco_led_buzzer(char key)
+{   
+    keypad_key_counter++;
+    printf("Tecla pressionada: %c\n", key);
+    
+    if (keypad_key_counter == 5)
+    {
+        // Acende os LEDs e toca o buzzer
+        acender_leds();
+        for (int i = 0; i < 5; i++)
+        {
+            buzzer_active(buzzer_frequency, 200);
+            sleep_ms(200); // Pausa entre toques
+        }
+        apagar_leds();
+
+        // Reseta o contador
+        keypad_key_counter = 0;
+    }
 }
