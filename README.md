@@ -2,28 +2,61 @@
 
 Este projeto implementa um sistema utilizando GPIOs do Raspberry Pi Pico W para integrar e controlar um teclado matricial 4x4, um botão externo, LEDs RGB, e um buzzer. Ele é a solução para a **Atividade 1 - Unidade 4** do programa de residência da **Embarcatech**.
 
-## Descrição do Funcionamento
+---
 
-- **Teclado matricial 4x4**: Cada tecla tem uma função específica para interagir com os componentes do sistema.
-  - Botão `A`: Acende o LED vermelho.
-  - Botão `B`: Acende o LED verde.
-  - Botão `C`: Acende o LED azul.
-  - Botão `D`: Acende os três LEDs simultaneamente.
-  - Botão `#`: Ativa o buzzer em uma frequência de 900Hz por 2 segundos.
-  - Botão `*`: Função de alternância para desativar todos os LEDs.
-  
-- **Botão externo**: Ao ser pressionado três vezes consecutivas, dispara uma sequência de animação nos LEDs RGB (acendendo e apagando em ordem e com atraso definido).
+## 📜 **Descrição do Funcionamento**
 
-## Componentes Utilizados
+A tabela abaixo descreve os comandos implementados e suas funcionalidades planejadas:
 
-1. **Teclado matricial 4x4**: Utilizado para controle das funções principais.
-2. **Botão externo**: Atribuído a um evento especial de controle dos LEDs RGB.
-3. **LEDs RGB (vermelho, verde e azul)**: Para feedback visual ao usuário.
-   - Vermelho conectado ao GPIO 10.
-   - Verde conectado ao GPIO 11.
-   - Azul conectado ao GPIO 12.
-4. **Buzzer**: Emite sons em frequências diferentes quando acionado, conectado ao GPIO 21.
+| **Comando**                  | **Descrição**                                                                | **Responsável**    |
+|------------------------------|----------------------------------------------------------------------------|--------------------|
+| **Pressionar Tecla D**       | Liga os três LEDs ao mesmo tempo.                                           | Pedro Duarte       |
+| **Pressionar Tecla * (5x)**  | O buzzer toca 5 vezes e os LEDs acendem todos juntos.                       | Bruna              |
+| **Pressionar Botão Push-Up (3x)** | Ao ser pressionado três vezes consecutivas, o buzzer emite um som três vezes consecutivas. | Gabriel Shiva      |
+| **Pressionar Tecla A**       | Liga o LED vermelho.                                                        | Ícaro              |
+| **Pressionar Tecla B**       | Liga o LED verde.                                                           | Ícaro              |
+| **Pressionar Tecla C**       | Liga o LED azul.                                                            | Ícaro              |
+| **Pressionar Tecla 9**       | Os LEDs piscam na sequência de um semáforo (o LED azul atua como o LED amarelo). | Reinan          |
+| **Pressionar Tecla 6**       | O LED azul pisca em um padrão Morse para o código "SOS".                    | Samyr              |
 
-## Link para Apresentação em Vídeo
+---
 
-O vídeo demonstrando o funcionamento do projeto pode ser acessado [aqui](#).
+## 🔌 **Conexão de Componentes**
+
+Os pinos configurados no programa são:
+
+- **LED Vermelho**: GPIO 10  
+- **LED Verde**: GPIO 11  
+- **LED Azul**: GPIO 12  
+- **Buzzer**: GPIO 21  
+- **Botão Push-Up**: GPIO 28  
+- **Teclado Matricial**:  
+  - *Linhas*: GPIOs 1, 2, 3 e 4  
+  - *Colunas*: GPIOs 5, 6, 7 e 8  
+
+---
+
+## 🔧 **Como Usar**
+
+1. **Configuração do Ambiente**:  
+   - Instale as extensões:  
+     - `Raspberry Pi Pico W`  
+     - `CMake`  
+     - `Wokwi Simulator`  
+   - Na IDE **VSCode**, clone o repositório para sua máquina utilizando o comando:  
+     ```bash
+     git clone -b main https://github.com/GabrielShiva/atividade-1-pico-gpio.git
+     ```
+
+2. **Execução do Programa**:  
+   - Realize a compilação do projeto;  
+   - Abra o arquivo `diagram.json` e clique no botão verde (*executar*);  
+   - Alternativamente, acesse o código disponível no **Wokwi Web** [clicando aqui](#).  
+
+---
+
+## 🎥 **Apresentação em Vídeo**
+
+O vídeo demonstrando o funcionamento do projeto pode ser acessado [clicando aqui](#).
+
+---
